@@ -10,6 +10,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Lifecycle
 
+    private var wasActiveBeforeSleep = false
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         setupStatusItem()
         buildMenu()
@@ -27,11 +29,47 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             name: NSApplication.didChangeScreenParametersNotification,
             object: nil
         )
+
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self,
+            selector: #selector(willSleep),
+            name: NSWorkspace.willSleepNotification,
+            object: nil
+        )
+
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self,
+            selector: #selector(didWake),
+            name: NSWorkspace.didWakeNotification,
+            object: nil
+        )
     }
 
     func applicationWillTerminate(_ notification: Notification) {
         constrainer.stop()
         hotkeyManager.stop()
+    }
+
+    // MARK: - Sleep/Wake handling
+
+    @objc private func willSleep() {
+        wasActiveBeforeSleep = constrainer.isActive
+        if wasActiveBeforeSleep {
+            constrainer.stop()
+        }
+    }
+
+    @objc private func didWake() {
+        // Delay slightly to let the display system stabilize after wake
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            guard let self = self else { return }
+            self.rebuildDisplaySection()
+            if self.wasActiveBeforeSleep {
+                self.constrainer.start(blockedDisplayIDs: self.displayManager.blockedDisplayIDs)
+                self.updateStatusIcon()
+                self.enableBlockingMenuItem.state = .on
+            }
+        }
     }
 
     // MARK: - Status item

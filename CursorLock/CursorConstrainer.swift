@@ -183,14 +183,14 @@ class CursorConstrainer {
     }
 
     private func buildAllowedRects(blockedIDs: Set<CGDirectDisplayID>) -> [CGRect] {
-        // Use CGDisplayBounds (CG coordinate space: origin top-left, Y downward)
-        // to match CGEvent.location, which is also in CG coordinate space.
-        // NSScreen.frame uses AppKit coordinates (origin bottom-left, Y upward)
-        // and diverges from CG coords for displays with any vertical offset.
         var rects: [CGRect] = []
         for screen in NSScreen.screens {
-            if !blockedIDs.contains(screen.displayID) {
-                rects.append(CGDisplayBounds(screen.displayID))
+            let id = screen.displayID
+            if !blockedIDs.contains(id) {
+                let bounds = CGDisplayBounds(id)
+                if !bounds.isNull {
+                    rects.append(bounds)
+                }
             }
         }
         return rects
