@@ -200,7 +200,7 @@ class CursorConstrainer {
         let alert = NSAlert()
         alert.messageText = "Accessibility Access Required"
         alert.informativeText = """
-            CursorLock needs Accessibility access to constrain the mouse cursor.
+            Boundary needs Accessibility access to constrain the mouse cursor.
             Please grant access in System Settings → Privacy & Security → Accessibility, \
             then relaunch the app.
             """

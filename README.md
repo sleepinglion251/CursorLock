@@ -1,6 +1,6 @@
-# CursorLock
+# Boundary
 
-**CursorLock** is a lightweight macOS menu bar application designed to prevent the mouse cursor from moving to user-selected displays. It is ideal for multi-monitor setups where you want to temporarily "lock" your cursor to specific screens (e.g., during gaming or focused work).
+**Boundary** is a lightweight macOS menu bar application designed to prevent the mouse cursor from moving to user-selected displays. It is ideal for multi-monitor setups where you want to temporarily "lock" your cursor to specific screens (e.g., during gaming or focused work).
 
 ## Features
 
@@ -19,12 +19,12 @@
 
 ## How It Works
 
-CursorLock intercepts mouse events before they reach the window server. When blocking is enabled, it calculates an "allowed region" consisting of all unblocked displays. If the cursor attempts to leave this region, CursorLock instantly clamps it back to the nearest allowed point.
+Boundary intercepts mouse events before they reach the window server. When blocking is enabled, it calculates an "allowed region" consisting of all unblocked displays. If the cursor attempts to leave this region, Boundary instantly clamps it back to the nearest allowed point.
 
 ## Installation / Build
 
-1. Open `CursorLock.xcodeproj` in Xcode.
-2. Build and run the `CursorLock` target.
+1. Open `Boundary.xcodeproj` in Xcode.
+2. Build and run the `Boundary` target.
 3. Grant Accessibility permissions when prompted.
 
 ## Project Structure

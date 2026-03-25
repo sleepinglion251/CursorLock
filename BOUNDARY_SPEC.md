@@ -1,15 +1,15 @@
-# CursorLock — Claude Code Build Spec
+# Boundary — Claude Code Build Spec
 
 ## Overview
 
-Build a macOS menu bar app called **CursorLock** that prevents the mouse cursor from moving to user-selected displays. The app lives entirely in the menu bar (no Dock icon, no main window). It uses a `CGEventTap` to intercept and rewrite mouse events before they reach the window server.
+Build a macOS menu bar app called **Boundary** that prevents the mouse cursor from moving to user-selected displays. The app lives entirely in the menu bar (no Dock icon, no main window). It uses a `CGEventTap` to intercept and rewrite mouse events before they reach the window server.
 
 ---
 
 ## Project Setup
 
-- **App name:** CursorLock
-- **Bundle ID:** com.yourname.CursorLock (replace `yourname` as appropriate)
+- **App name:** Boundary
+- **Bundle ID:** com.yourname.Boundary (replace `yourname` as appropriate)
 - **Deployment target:** macOS 12.0
 - **Language:** Swift 5.9+
 - **UI framework:** AppKit only (no SwiftUI)
@@ -28,7 +28,7 @@ Delete or disable everything that creates a window at launch:
 ## File Structure
 
 ```
-CursorLock/
+Boundary/
 ├── AppDelegate.swift        # Entry point, owns NSStatusItem and NSMenu
 ├── CursorConstrainer.swift  # CGEventTap logic
 ├── DisplayManager.swift     # NSScreen/CGDisplay helpers + UserDefaults persistence
@@ -45,7 +45,7 @@ CursorLock/
 <true/>
 
 <key>NSAccessibilityUsageDescription</key>
-<string>CursorLock needs Accessibility access to constrain the mouse cursor to selected displays.</string>
+<string>Boundary needs Accessibility access to constrain the mouse cursor to selected displays.</string>
 ```
 
 ---
@@ -281,7 +281,7 @@ If `CGEvent.tapCreate` returns `nil`, show:
 
 ```
 Title:   "Accessibility Access Required"
-Message: "CursorLock needs Accessibility access to constrain the mouse cursor.
+Message: "Boundary needs Accessibility access to constrain the mouse cursor.
           Please grant access in System Settings → Privacy & Security → Accessibility,
           then relaunch the app."
 Button:  "Open System Settings"  → NSWorkspace.shared.open(URL for x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility)

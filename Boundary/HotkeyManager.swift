@@ -10,14 +10,14 @@ class HotkeyManager {
         self.currentKey = char.lowercased()
         self.currentModifiers = modifiers
 
-        NSLog("CursorLock: HotkeyManager starting with mods:0x%08x key:%@", modifiers.rawValue, char)
+        NSLog("Boundary: HotkeyManager starting with mods:0x%08x key:%@", modifiers.rawValue, char)
         monitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] event in
             guard let self = self else { return }
             let flags = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
             let key = event.charactersIgnoringModifiers?.lowercased()
 
             if flags == self.currentModifiers, key == self.currentKey {
-                NSLog("CursorLock: Hotkey triggered!")
+                NSLog("Boundary: Hotkey triggered!")
                 handler()
             }
         }
@@ -38,7 +38,7 @@ class HotkeyManager {
     func update(char: String, modifiers: NSEvent.ModifierFlags) {
         self.currentKey = char.lowercased()
         self.currentModifiers = modifiers
-        NSLog("CursorLock: Hotkey updated to mods:0x%08x key:%@", modifiers.rawValue, char)
+        NSLog("Boundary: Hotkey updated to mods:0x%08x key:%@", modifiers.rawValue, char)
     }
 
     func stop() {

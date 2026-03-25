@@ -21,10 +21,10 @@ jobs:
       - name: Archive
         run: |
           xcodebuild archive \
-            -project CursorLock.xcodeproj \
-            -scheme CursorLock \
+            -project Boundary.xcodeproj \
+            -scheme Boundary \
             -configuration Release \
-            -archivePath build/CursorLock.xcarchive \
+            -archivePath build/Boundary.xcarchive \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
@@ -33,7 +33,7 @@ jobs:
       - name: Export app
         run: |
           xcodebuild -exportArchive \
-            -archivePath build/CursorLock.xcarchive \
+            -archivePath build/Boundary.xcarchive \
             -exportPath build/export \
             -exportOptionsPlist ExportOptions.plist
 
@@ -41,11 +41,11 @@ jobs:
       - name: Zip app
         run: |
           cd build/export
-          zip -r ../../CursorLock-${{ github.ref_name }}.zip CursorLock.app
+          zip -r ../../Boundary-${{ github.ref_name }}.zip Boundary.app
 
       # ── Create GitHub Release and attach the zip ───────────────────────────
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
-          files: CursorLock-${{ github.ref_name }}.zip
+          files: Boundary-${{ github.ref_name }}.zip
           generate_release_notes: true
